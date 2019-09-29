@@ -1,3 +1,4 @@
+基于springboot1.5.10
 ```
 common.redis.hostList=host1,host2
 common.redis.port=6379
