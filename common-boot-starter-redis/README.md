@@ -1,3 +1,4 @@
+```
 common.redis.hostList=host1,host2
 common.redis.port=6379
 common.redis.password=password
@@ -16,3 +17,4 @@ common.redisson.port=6379
 common.redisson.password=password
 common.redisson.database=1
 common.redisson.connectPoolSize=100
+```
