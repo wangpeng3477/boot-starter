@@ -1,4 +1,5 @@
 基于springboot1.5.10
+由于阿里云多个redis实例 不支持以集群方式连接，所以使用了shard node 方式把多个阿里云redis实例组成集群
 ```
 common.redis.hostList=host1,host2
 common.redis.port=6379
