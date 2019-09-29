@@ -1,4 +1,4 @@
-package com.youqu.redis.properties;
+package com.wp.redis.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

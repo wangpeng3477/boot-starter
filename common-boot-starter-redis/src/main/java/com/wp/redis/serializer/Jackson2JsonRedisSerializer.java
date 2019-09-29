@@ -1,4 +1,4 @@
-package com.youqu.redis.serializer;
+package com.wp.redis.serializer;
 
 /*
  * Copyright 2011-2014 the original author or authors.
@@ -24,17 +24,13 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import org.apache.commons.io.IOUtils;
 import org.bson.types.ObjectId;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.util.Assert;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * {@link RedisSerializer} that can read and write JSON using <a
@@ -43,11 +39,11 @@ import java.util.zip.GZIPOutputStream;
  * <p>
  * This converter can be used to bind to typed beans, or untyped {@link java.util.HashMap HashMap} instances.
  * <b>Note:</b>Null objects are serialized as empty arrays and vice versa.
- * 用Jackson2JsonRedisSerializer进行序列化的值，在Redis中保存的内容，比Java中多了一对双引号。
+ *
  * @author Thomas Darimont
  * @since 1.2
  */
-public class Jackson2JsonRedisGzipSerializer<T> implements RedisSerializer<T> {
+public class Jackson2JsonRedisSerializer<T> implements RedisSerializer<T> {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
@@ -56,21 +52,21 @@ public class Jackson2JsonRedisGzipSerializer<T> implements RedisSerializer<T> {
     private ObjectMapper objectMapper = createMapper();
 
     /**
-     * Creates a new {@link Jackson2JsonRedisGzipSerializer} for the given target {@link Class}.
+     * Creates a new {@link Jackson2JsonRedisSerializer} for the given target {@link Class}.
      *
      * @param type
      */
-    public Jackson2JsonRedisGzipSerializer(Class<T> type) {
+    public Jackson2JsonRedisSerializer(Class<T> type) {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.javaType = getJavaType(type);
     }
 
     /**
-     * Creates a new {@link Jackson2JsonRedisGzipSerializer} for the given target {@link JavaType}.
+     * Creates a new {@link Jackson2JsonRedisSerializer} for the given target {@link JavaType}.
      *
      * @param javaType
      */
-    public Jackson2JsonRedisGzipSerializer(JavaType javaType) {
+    public Jackson2JsonRedisSerializer(JavaType javaType) {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.javaType = javaType;
     }
@@ -83,11 +79,7 @@ public class Jackson2JsonRedisGzipSerializer<T> implements RedisSerializer<T> {
             return null;
         }
         try {
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            GZIPInputStream ungzip = new GZIPInputStream(in);
-            byte[] data = IOUtils.toByteArray(ungzip);
-            ungzip.close();
-            return (T) this.objectMapper.readValue(data, 0, data.length, javaType);
+            return (T) this.objectMapper.readValue(bytes, 0, bytes.length, javaType);
         } catch (Exception ex) {
             throw new SerializationException("Could not read JSON: " + ex.getMessage(), ex);
         }
@@ -100,13 +92,7 @@ public class Jackson2JsonRedisGzipSerializer<T> implements RedisSerializer<T> {
             return EMPTY_ARRAY;
         }
         try {
-            byte[] bytes = this.objectMapper.writeValueAsBytes(t);
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            GZIPOutputStream gzip = new GZIPOutputStream(out);
-            gzip.write(bytes);
-            gzip.close();
-            return out.toByteArray();
+            return this.objectMapper.writeValueAsBytes(t);
         } catch (Exception ex) {
             throw new SerializationException("Could not write JSON: " + ex.getMessage(), ex);
         }

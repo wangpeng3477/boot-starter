@@ -1,18 +1,17 @@
-package com.youqu.redis.autoconfig;
+package com.wp.redis.autoconfig;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youqu.redis.facade.RedisFacade;
-import com.youqu.redis.properties.RedisConfigProperties;
-import com.youqu.redis.properties.RedissonConfigProperties;
-import com.youqu.redis.routes.RedisTemplateRoute;
+import com.wp.redis.facade.RedisFacade;
+import com.wp.redis.properties.RedisConfigProperties;
+import com.wp.redis.properties.RedissonConfigProperties;
+import com.wp.redis.routes.RedisTemplateRoute;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

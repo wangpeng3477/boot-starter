@@ -1,4 +1,4 @@
-package com.youqu.redis.template;
+package com.wp.redis.template;
 
 import redis.clients.util.Hashing;
 import java.util.List;

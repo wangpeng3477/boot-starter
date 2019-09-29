@@ -1,4 +1,4 @@
-package com.youqu.redis.utils;
+package com.wp.redis.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;

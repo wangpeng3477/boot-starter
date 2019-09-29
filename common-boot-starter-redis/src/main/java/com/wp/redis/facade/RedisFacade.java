@@ -1,8 +1,8 @@
-package com.youqu.redis.facade;
+package com.wp.redis.facade;
 
-import com.youqu.redis.properties.RedisConfigProperties;
-import com.youqu.redis.routes.RedisTemplateRoute;
-import com.youqu.redis.utils.ObjectUtil;
+import com.wp.redis.routes.RedisTemplateRoute;
+import com.wp.redis.properties.RedisConfigProperties;
+import com.wp.redis.utils.ObjectUtil;
 import org.perf4j.StopWatch;
 import org.perf4j.slf4j.Slf4JStopWatch;
 import org.redisson.api.RLock;

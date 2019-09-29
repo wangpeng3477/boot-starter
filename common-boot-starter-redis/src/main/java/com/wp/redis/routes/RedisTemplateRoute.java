@@ -1,6 +1,6 @@
-package com.youqu.redis.routes;
+package com.wp.redis.routes;
 
-import com.youqu.redis.template.TemplateRoute;
+import com.wp.redis.template.TemplateRoute;
 import org.springframework.data.redis.core.RedisTemplate;
 import java.util.List;
 
